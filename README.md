@@ -174,7 +174,7 @@ Back in 1943, Warren McCulloch and Walter Pitts published a fundamental paper on
 | 3 | Validators | 1. We've set up the Velas Node for listening to the events (Maintainance costs EUR 200/month)<br>2. Added the logic to the validators to listen to & validate the TX to/from Velas |
 | 4 | Backend | Integration of Velas in the:<br>1. [NFT Index](https://indexnft.herokuapp.com) Requires JWT<br>2. TX Fee Estimator<br>3. [Crypto-currency converter](https://testing-bridge.xp.network/exchange/)<br> 4. [Heartbeat](https://xpheartbeat.herokuapp.com) - checks whether the Velas Node & validators areup and operating properly |
 | 5 | Frontend | Integration of Velas in the:<br>1. User Interface<br> 2. Wallets (Metamask, TrustWallet, WalletConnect) |
-| 6 | Whitelisted SCs | 1. <br> |
+| 6 | Whitelisted SCs | 1. 0x43f7eA266b08f3E2470c9295CD270FbD6636ae8e<br>2. 0x20AB7a2678b6911b71B2d464661EBD2540f39da6<br>3. 0xD44264fa0a3f0B34c40edbF42A456145A29E186a<br>4. 0x948E8c6E0c9035f7372a10e10f9f71cC81341053<br>5. 0xb73CC6D7a621E0e220b369C319DBFaC258cEf4D2<br> 6. 0xFC966b221fb8ee64f2e7535b3c5c1cc19Bb4Ac93<br>7. 0xF62a8a8af4E1b78053f8F53F0c8f2d2146780B92<br>8. 0x36DCc6111b5FBF8C25484EBa8B4b39DEA5206a88<br>9. 0x6AAe361F01Ca0A51727426222bD465A0De0dBAbe |
 
 ## 5. Future Plans
 
