@@ -10,8 +10,9 @@
   - Algorand
   - Fantom
   - Tron
+  - Tezos
   - Elrond
-  - xDai
+  - Gnosis Chain (former xDai)
   - Fuse
 
 ### 1.1 Tech stack
@@ -170,11 +171,20 @@ Back in 1943, Warren McCulloch and Walter Pitts published a fundamental paper on
 | Number | Deliverable | Specification |
 |-|-|-|
 | 1 | Documentation | We will provide both inline documentation of the code and a basic tutorial that can interact with the deployed smart contracts and backend service. |
-| 2 | Smart Contracts | We have developed smart contracts that are able to:<br>1. Support ERC-721 `0xFC2b3dB912fcD8891483eD79BA31b8E5707676C9`<br>2. Support ERC-1155 `0xb83448C460197E2F591eAA3FC6Be2c4fF88d9e9C`<br>3. Bridge SC `0x2f156D07376476f799166964bb62598882744ce5`<br> 4. Freeze/Unfreeze Native NFTs in batches<br>5. Mint/Burn wrapped NFTs in batches<br>6. Pay the TX fees on the target chain in native tokens<br>7. Send / Receive NFTs in batches<br>8. Withdraw TX fees in the native tokens for the target chain |
+| 2 | Smart Contracts | We have developed smart contracts that are able to:<br>1. Support ERC-721 `0x3F888c0Ee72943a3Fb1c169684A9d1e8DEB9f537`<br>2. Support ERC-1155 `0x0cC5F00e673B0bcd1F780602CeC6553aec1A57F0`<br>3. Bridge SC `0x40d8160A0Df3D9aad75b9208070CFFa9387bc051`<br> 4. Freeze/Unfreeze Native NFTs in batches<br>5. Mint/Burn wrapped NFTs in batches<br>6. Pay the TX fees on the target chain in native tokens<br>7. Send / Receive NFTs in batches<br>8. Withdraw TX fees in the native tokens for the target chain |
 | 3 | Validators | 1. We've set up the Velas Node for listening to the events (Maintainance costs EUR 200/month)<br>2. Added the logic to the validators to listen to & validate the TX to/from Velas |
 | 4 | Backend | Integration of Velas in the:<br>1. [NFT Index](https://indexnft.herokuapp.com) Requires JWT<br>2. TX Fee Estimator<br>3. [Crypto-currency converter](https://testing-bridge.xp.network/exchange/)<br> 4. [Heartbeat](https://xpheartbeat.herokuapp.com) - checks whether the Velas Node & validators areup and operating properly |
 | 5 | Frontend | Integration of Velas in the:<br>1. User Interface<br> 2. Wallets (Metamask, TrustWallet, WalletConnect) |
 | 6 | Whitelisted SCs | 1. 0x43f7eA266b08f3E2470c9295CD270FbD6636ae8e<br>2. 0x20AB7a2678b6911b71B2d464661EBD2540f39da6<br>3. 0xD44264fa0a3f0B34c40edbF42A456145A29E186a<br>4. 0x948E8c6E0c9035f7372a10e10f9f71cC81341053<br>5. 0xb73CC6D7a621E0e220b369C319DBFaC258cEf4D2<br> 6. 0xFC966b221fb8ee64f2e7535b3c5c1cc19Bb4Ac93<br>7. 0xF62a8a8af4E1b78053f8F53F0c8f2d2146780B92<br>8. 0x36DCc6111b5FBF8C25484EBa8B4b39DEA5206a88<br>9. 0x6AAe361F01Ca0A51727426222bD465A0De0dBAbe |
+
+## Testnet Smart contracts
+|Contract|Address|
+|:-:|:-:|
+|UserNftMinter|0x5df32A2F15D021DeF5086cF94fbCaC4594208A26|
+|Erc1155Minter|0x941972fa041F507eBb8CfD5d11C05Eb1a51f2E95|
+|XPNft1155|0x5D822bA2a0994434392A0f947C83310328CFB0DE|
+|XPNft|0xE657b66d683bF4295325c5E66F6bb0fb6D1F7551|
+|Minter|0x5051679FEDf0D7F01Dc23e72674d0ED58de9be6a|
 
 ## 5. Future Plans
 
@@ -188,3 +198,128 @@ Our long term plans include:
 7. Distributed NFT’s hosting (better than IPFS)
 8. NFT Search (search by any parameter)
 9. Retention protection tool
+
+
+## 7. Trying Velas in Testnet
+
+### 7.1. Initiating a Node.js project
+Initiate a JS/TS project
+
+```bash
+mkdir your_project
+cd your_project/
+yarn init -y
+```
+
+### 7.2. Installing the libraries
+
+To test/use the latest commits of the library install directly from github
+
+```bash
+yarn add "git+https://github.com/xp-network/xpjs#bleeding-edge" @elrondnetwork/erdjs ethers @taquito/taquito @temple-wallet/dapp dotenv
+```
+
+### 7.3. Importing the Dependencies
+
+```ts
+import {
+    ChainFactoryConfigs,  ChainFactory,
+    ElrondHelper,         ElrondParams,
+    TronHelper,           TronParams,
+    Web3Helper,           Web3Params,
+    AppConfigs,
+    NftMintArgs,          Chain
+} from "xp.network";
+import {config} from 'dotenv';
+config();
+  
+// Instantiate the chain factory for the TESTNET
+const testnetConfig = ChainFactoryConfigs.TestNet();
+const factory = ChainFactory(AppConfigs.TestNet(), testnetConfig);
+```
+
+### 7.4. Creating a signer object
+
+Add a `.env` file and populate it with the Private Key of the signer
+
+```bash
+touch .env
+echo "SK=<replace with your Provate Key>" >> .env
+```
+Add the signer object:
+```ts
+// EVM chains compatible wallet:
+import { Wallet } from "ethers";
+// EVM signer for testing in the BE
+const signer = new Wallet(
+  //  Private Key Of the Signer
+  process.env.SK!,
+  testnetConfig.velasParams?.provider
+);
+// Print out your signer object to see that it matches the expected wallet
+console.log("signer", signer);
+```
+
+### 7.5. Creating inner Blockchain objects
+
+```ts
+(async () => {
+  // EVM-compatible chains:
+  // Inner Object ============= Chain Nonce == Chain Nonce ==
+  const bsc       = await factory.inner<4>(Chain.BSC);
+  const ethereum  = await factory.inner<5>(Chain.ETHEREUM);
+  const avax      = await factory.inner<6>(Chain.AVALANCHE);
+  const polygon   = await factory.inner<7>(Chain.POLYGON);
+  const fantom    = await factory.inner<8>(Chain.FANTOM);
+  const velas     = await factory.inner<19>(Chain.VELAS);
+  const gnosis    = await factory.inner<14>(Chain.XDAI);
+  const harmony   = await factory.inner<12>(Chain.HARMONY);
+  // To view an inner object:
+  console.log("bsc:", bsc);
+})();
+```
+
+### 7.6. Minting NFTs for testing
+
+```ts
+(async () => {
+   const nftResult = await factory.mint(
+      velas,
+      rocess.env.SK!,
+      {
+        contract: "0x5df32A2F15D021DeF5086cF94fbCaC4594208A26",
+        uris:["<Replace with your metadata URI>"]
+      } as NftMintArgs
+   );
+   console.log("Minting result:", nftResult);
+})();
+```
+
+### 7.7. Getting a list of NFTs a user owns on a Blockchain
+
+```ts
+(async () => {
+  // Getting a list of NFTs
+  const velasNFTs = await factory.nftList(
+    velas,            // The inner chain object
+    signer.address  // The public key of the user
+  );
+  // To view a list of NFTs:
+  console.log("NFTs:", velasNFTs);
+})();
+```
+
+### 7.8. Transferring an NFT
+```ts
+(async () => {
+    // Calling the function:
+    const result = await factory.transferNft(
+    velas,                      // The Source Chain.
+    ethereum,                   // The Destination Chain.
+    bscNFTs[0],                 // The NFT selected by the index.
+    signer,                     // The web3 signer object.
+    "ADDRESS OF THE RECEIVER"   // The address who you are transferring the NFT to.
+  );
+  console.log(web3Result);
+})();
+```
