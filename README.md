@@ -90,17 +90,16 @@
 The UI allows the user to interact with the bridge without directly invoking code. It supports a number of wallets the user can select to sign the transactions on his/her behalf. To help a user to seamlesly begin bridging he have prepared a [video walk through](https://www.youtube.com/watch?v=QZvG6MaEdW4).
 
 1. Initial view of the [bridge](https://bridge.xp.network/#) allows to choose the chains of departure & destination.
-![View-1](assets/1.png)
+<img align="center" src="assets/1.png">
 
-2. A useer can choose from a range of EVM and Non-Evm chains by clicking an element of the list or type the name of the chain of interest in the search bar.
-   
-![View-2](assets/2.png)
+1. A useer can choose from a range of EVM and Non-Evm chains by clicking an element of the list or type the name of the chain of interest in the search bar.
+<img align="center" src="assets/Velas_on_top.jpg">
 
-3. The wallet selection pop-up window suggests a range of wallets supported by the bridge. The wallets relevant to the departure chain are active and displayed with bright colors. The wallets relevant for other chains are inactive and therefore greyed out.
-![View-3](assets/3.png)
+1. The wallet selection pop-up window suggests a range of wallets supported by the bridge. The wallets relevant to the departure chain are active and displayed with bright colors. The wallets relevant for other chains are inactive and therefore greyed out.
+2. <img align="center" src="assets/3.png">
 
-4. Our NFT-Indexer lists the NFTs a user Owns on the chain of departure
-![View-4](assets/4.png)
+3. Our NFT-Indexer lists the NFTs a user Owns on the chain of departure
+<img align="center" src="assets/4.png">
 
 ### 2.3 Backend + Token Conversion Oracles
 
@@ -199,6 +198,17 @@ Our long term plans include:
 8. NFT Search (search by any parameter)
 9. Retention protection tool
 
+## 6. Successful Mainnet NFT Transfers
+
+Sending from Velas to Ethereum:<br/>
+https://evmexplorer.velas.com/tx/0xe406dbebd2134a775ed47b42ffa94540aa52cce8d7efba23b9c21e58a6e51d6e/logs
+
+<img align="center" src="assets/Velas_Punks_To_Ethereum.jpg">
+
+Arrival on Ethereum:<br/>
+https://etherscan.io/tx/0x00101a558540f5e9a764d68fa8cd66ac32c75f741bd9df82684dffbfa4263aaa
+
+<img align="center" src="assets/VP_on_Ethereum.jpg">
 
 ## 7. Trying Velas in Testnet
 
